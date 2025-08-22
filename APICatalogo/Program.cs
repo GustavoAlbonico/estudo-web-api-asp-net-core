@@ -10,7 +10,11 @@ builder.Services.AddOpenApi();
 
 string? mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
+builder.Services.AddDbContext<AppDbContext>(
+    options => options
+                    .UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection))
+                    .UseSnakeCaseNamingConvention()
+);
 
 var app = builder.Build();
 
