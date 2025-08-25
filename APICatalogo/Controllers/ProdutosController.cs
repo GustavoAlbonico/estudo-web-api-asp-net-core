@@ -18,7 +18,8 @@ public class ProdutosController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Produto>> Get()
     {
-        var produtos = _context.Produtos.ToList();
+        //além disso sempre retornar com paginação para não sobrecarregar
+        var produtos = _context.Produtos.AsNoTracking().ToList();//AsNoTracking faz mlehorar o desempenho da consulta, mas utilziar apenas para itens que não vao ser alterados
 
         if (produtos is null)
             return NotFound("Produto não encontrado...");
@@ -29,7 +30,7 @@ public class ProdutosController : ControllerBase
     [HttpGet("{id:int}", Name = "ObterProduto")]
     public ActionResult<Produto> Get(int id)
     {
-        var produto = _context.Produtos.FirstOrDefault(p => p.Id == id);
+        var produto = _context.Produtos.AsNoTracking().FirstOrDefault(p => p.Id == id);
 
         if (produto is null)
             return NotFound("Produto não encontrado...");
