@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using APICatalogo.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "weather api"));
+    app.ConfigureExceptionHandler();
 }
 
 app.UseHttpsRedirection();
