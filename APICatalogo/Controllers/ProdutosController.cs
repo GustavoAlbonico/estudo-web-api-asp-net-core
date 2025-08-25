@@ -1,3 +1,4 @@
+using APICatalogo.Filters;
 using APICatalogo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -18,6 +19,7 @@ public class ProdutosController : ControllerBase
 
     // [HttpGet("{valor:alpha:length(5)}")]
     [HttpGet]
+    [ServiceFilter(typeof(ApiLoggingFilter))]
     public async Task<ActionResult<IEnumerable<Produto>>> Get()
     {
         try
