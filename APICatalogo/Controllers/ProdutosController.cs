@@ -17,12 +17,12 @@ public class ProdutosController : ControllerBase
 
     // [HttpGet("{valor:alpha:length(5)}")]
     [HttpGet]
-    public ActionResult<IEnumerable<Produto>> Get()
+    public async Task<ActionResult<IEnumerable<Produto>>> Get()
     {
         try
         {
             //além disso sempre retornar com paginação para não sobrecarregar
-            var produtos = _context.Produtos.AsNoTracking().ToList();//AsNoTracking faz mlehorar o desempenho da consulta, mas utilziar apenas para itens que não vao ser alterados
+            var produtos = await _context.Produtos.AsNoTracking().ToListAsync();//AsNoTracking faz mlehorar o desempenho da consulta, mas utilziar apenas para itens que não vao ser alterados
 
             if (produtos is null)
                 return NotFound("Produto não encontrado...");
@@ -37,11 +37,11 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
-    public ActionResult<Produto> Get(int id)
+    public async Task<ActionResult<Produto>> Get(int id)
     {
         try
         {
-            var produto = _context.Produtos.AsNoTracking().FirstOrDefault(p => p.Id == id);
+            var produto = await _context.Produtos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
             if (produto is null)
                 return NotFound("Produto não encontrado...");
