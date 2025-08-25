@@ -11,10 +11,12 @@ namespace APICatalogo.Controllers;
 public class ProdutosController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly ILogger _logger;
 
-    public ProdutosController(AppDbContext context)
+    public ProdutosController(AppDbContext context, ILogger<ProdutosController> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     // [HttpGet("{valor:alpha:length(5)}")]
@@ -24,6 +26,8 @@ public class ProdutosController : ControllerBase
     {
         try
         {
+            _logger.LogInformation("====================== GET produtos/ ======================");
+
             //além disso sempre retornar com paginação para não sobrecarregar
             var produtos = await _context.Produtos.AsNoTracking().ToListAsync();//AsNoTracking faz mlehorar o desempenho da consulta, mas utilziar apenas para itens que não vao ser alterados
 
