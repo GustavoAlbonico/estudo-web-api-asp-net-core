@@ -12,14 +12,15 @@ public class Produto
     public int Id { get; set; }
 
     [Required]
-    [StringLength(80)]
+    [StringLength(80, MinimumLength = 5, ErrorMessage = "O nome deve ter pelo menos 5 e 80 caracteres")]
     public string? Nome { get; set; }
 
     [Required]
-    [StringLength(300)]
+    [StringLength(300, ErrorMessage = "A descrição deve ter no maximo {1} caracteres")]
     public string? Descricao { get; set; }
 
     [Required]
+    [Range (1,1000, ErrorMessage = "O preço deve estar entre {1} e {2}")]
     [Column(TypeName = "decimal(10,2)")]
     public decimal Preco { get; set; }
 
