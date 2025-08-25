@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace APICatalogo.Models;
 
@@ -30,7 +31,8 @@ public class Produto
     public DateTime DataCadastro { get; set; }
     public int CategoriaId { get; set; }
 
-    [JsonIgnore]
+    [JsonIgnore] //não exige a necessidade de informar esse campo
+    [BindNever] //faz não vincular informações ao parametro
     public Categoria? Categoria { get; set; }
 
 }

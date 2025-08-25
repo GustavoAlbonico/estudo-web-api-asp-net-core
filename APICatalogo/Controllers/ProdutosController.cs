@@ -1,5 +1,6 @@
 using APICatalogo.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 namespace APICatalogo.Controllers;
@@ -37,7 +38,14 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
-    public async Task<ActionResult<Produto>> Get(int id)
+    public async Task<ActionResult<Produto>> Get([FromRoute] int id, [BindRequired] string nome)//BindRequired query param obrigatorio
+                                              // [FromBody]
+                                              // [FromHeader]
+                                              // [FromForm]
+                                              // [FromQuery]
+                                              // [FromRoute]
+                                              // [FromServices]
+                                              // [FromKeyedServices]
     {
         try
         {
