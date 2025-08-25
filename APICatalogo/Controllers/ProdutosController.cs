@@ -15,6 +15,7 @@ public class ProdutosController : ControllerBase
         _context = context;
     }
 
+    // [HttpGet("{valor:alpha:length(5)}")]
     [HttpGet]
     public ActionResult<IEnumerable<Produto>> Get()
     {
@@ -35,7 +36,7 @@ public class ProdutosController : ControllerBase
 
     }
 
-    [HttpGet("{id:int}", Name = "ObterProduto")]
+    [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
     public ActionResult<Produto> Get(int id)
     {
         try
