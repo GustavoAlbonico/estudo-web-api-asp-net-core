@@ -27,20 +27,20 @@ public class Repository<T> : IRepository<T> where T : class
     public T Create(T entity)
     {
         _context.Set<T>().Add(entity);
-        _context.SaveChanges();
+        // _context.SaveChanges();//uof está fazendo isso agora
         return entity;
     }
     public T Update(T entity)
     {
         _context.Set<T>().Update(entity);
         //_context.Entry(entity).State = EntityState.Modified;
-        _context.SaveChanges();
+        // _context.SaveChanges(); //uof está fazendo isso agora
         return entity;
     }
     public T Delete(T entity)
     {
         _context.Set<T>().Remove(entity);
-        _context.SaveChanges();
+        // _context.SaveChanges();//uof está fazendo isso agora
         return entity;
     }
 }
