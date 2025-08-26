@@ -15,3 +15,38 @@ Information: 0 - Hosting environment: Development
 Information: 0 - Content root path: D:\Estudo\estudo-web-api-asp-net-core\APICatalogo
 Warning: 3 - Failed to determine the https port for redirect.
 Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5207
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: D:\Estudo\estudo-web-api-asp-net-core\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 20101 - Executed DbCommand (35ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`id`, `c`.`imagem_url`, `c`.`nome`
+FROM `Categorias` AS `c`
+Information: 20101 - Executed DbCommand (17ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categorias` (`imagem_url`, `nome`)
+VALUES (@p0, @p1);
+SELECT `id`
+FROM `Categorias`
+WHERE ROW_COUNT() = 1 AND `id` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`id`, `c`.`imagem_url`, `c`.`nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`id` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (29ms) [Parameters=[@p2='?' (DbType = Int32), @p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `Categorias` SET `imagem_url` = @p0, `nome` = @p1
+WHERE `id` = @p2;
+SELECT ROW_COUNT();
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`id`, `c`.`imagem_url`, `c`.`nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`id` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (25ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+DELETE FROM `Categorias`
+WHERE `id` = @p0;
+SELECT ROW_COUNT();
+Information: 0 - Application is shutting down...
