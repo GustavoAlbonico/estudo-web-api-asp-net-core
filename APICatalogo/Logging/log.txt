@@ -67,3 +67,109 @@ FROM `Produtos` AS `p`
 WHERE `p`.`id` = @__id_0
 LIMIT 1
 Information: 0 - Application is shutting down...
+Information: 20411 - Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+Information: 20101 - Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT GET_LOCK('__ApiCatalogoDB_EFMigrationsLock', 259200)
+Information: 20101 - Executed DbCommand (22ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
+    `migration_id` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
+    `product_version` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `pk___ef_migrations_history` PRIMARY KEY (`migration_id`)
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (29ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='ApiCatalogoDB' AND TABLE_NAME='__EFMigrationsHistory';
+Information: 20101 - Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `migration_id`, `product_version`
+FROM `__EFMigrationsHistory`
+ORDER BY `migration_id`;
+Information: 20402 - Applying migration '20250827180110_CriaTabelasIdentity'.
+Information: 20101 - Executed DbCommand (27ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE `AspNetRoles` (
+    `id` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `name` varchar(256) CHARACTER SET utf8mb4 NULL,
+    `normalized_name` varchar(256) CHARACTER SET utf8mb4 NULL,
+    `concurrency_stamp` longtext CHARACTER SET utf8mb4 NULL,
+    CONSTRAINT `pk_asp_net_roles` PRIMARY KEY (`id`)
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (23ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE `AspNetUsers` (
+    `id` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `user_name` varchar(256) CHARACTER SET utf8mb4 NULL,
+    `normalized_user_name` varchar(256) CHARACTER SET utf8mb4 NULL,
+    `email` varchar(256) CHARACTER SET utf8mb4 NULL,
+    `normalized_email` varchar(256) CHARACTER SET utf8mb4 NULL,
+    `email_confirmed` tinyint(1) NOT NULL,
+    `password_hash` longtext CHARACTER SET utf8mb4 NULL,
+    `security_stamp` longtext CHARACTER SET utf8mb4 NULL,
+    `concurrency_stamp` longtext CHARACTER SET utf8mb4 NULL,
+    `phone_number` longtext CHARACTER SET utf8mb4 NULL,
+    `phone_number_confirmed` tinyint(1) NOT NULL,
+    `two_factor_enabled` tinyint(1) NOT NULL,
+    `lockout_end` datetime(6) NULL,
+    `lockout_enabled` tinyint(1) NOT NULL,
+    `access_failed_count` int NOT NULL,
+    CONSTRAINT `pk_asp_net_users` PRIMARY KEY (`id`)
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (44ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE `AspNetRoleClaims` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `role_id` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `claim_type` longtext CHARACTER SET utf8mb4 NULL,
+    `claim_value` longtext CHARACTER SET utf8mb4 NULL,
+    CONSTRAINT `pk_asp_net_role_claims` PRIMARY KEY (`id`),
+    CONSTRAINT `fk_asp_net_role_claims_asp_net_roles_role_id` FOREIGN KEY (`role_id`) REFERENCES `AspNetRoles` (`id`) ON DELETE CASCADE
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (37ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE `AspNetUserClaims` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `user_id` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `claim_type` longtext CHARACTER SET utf8mb4 NULL,
+    `claim_value` longtext CHARACTER SET utf8mb4 NULL,
+    CONSTRAINT `pk_asp_net_user_claims` PRIMARY KEY (`id`),
+    CONSTRAINT `fk_asp_net_user_claims_asp_net_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `AspNetUsers` (`id`) ON DELETE CASCADE
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (42ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE `AspNetUserLogins` (
+    `login_provider` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `provider_key` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `provider_display_name` longtext CHARACTER SET utf8mb4 NULL,
+    `user_id` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `pk_asp_net_user_logins` PRIMARY KEY (`login_provider`, `provider_key`),
+    CONSTRAINT `fk_asp_net_user_logins_asp_net_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `AspNetUsers` (`id`) ON DELETE CASCADE
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (43ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE `AspNetUserRoles` (
+    `user_id` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `role_id` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `pk_asp_net_user_roles` PRIMARY KEY (`user_id`, `role_id`),
+    CONSTRAINT `fk_asp_net_user_roles_asp_net_roles_role_id` FOREIGN KEY (`role_id`) REFERENCES `AspNetRoles` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `fk_asp_net_user_roles_asp_net_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `AspNetUsers` (`id`) ON DELETE CASCADE
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (26ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE `AspNetUserTokens` (
+    `user_id` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `login_provider` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `name` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `value` longtext CHARACTER SET utf8mb4 NULL,
+    CONSTRAINT `pk_asp_net_user_tokens` PRIMARY KEY (`user_id`, `login_provider`, `name`),
+    CONSTRAINT `fk_asp_net_user_tokens_asp_net_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `AspNetUsers` (`id`) ON DELETE CASCADE
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (95ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX `ix_asp_net_role_claims_role_id` ON `AspNetRoleClaims` (`role_id`);
+Information: 20101 - Executed DbCommand (25ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX `RoleNameIndex` ON `AspNetRoles` (`normalized_name`);
+Information: 20101 - Executed DbCommand (18ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX `ix_asp_net_user_claims_user_id` ON `AspNetUserClaims` (`user_id`);
+Information: 20101 - Executed DbCommand (21ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX `ix_asp_net_user_logins_user_id` ON `AspNetUserLogins` (`user_id`);
+Information: 20101 - Executed DbCommand (18ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX `ix_asp_net_user_roles_role_id` ON `AspNetUserRoles` (`role_id`);
+Information: 20101 - Executed DbCommand (25ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX `EmailIndex` ON `AspNetUsers` (`normalized_email`);
+Information: 20101 - Executed DbCommand (27ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX `UserNameIndex` ON `AspNetUsers` (`normalized_user_name`);
+Information: 20101 - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO `__EFMigrationsHistory` (`migration_id`, `product_version`)
+VALUES ('20250827180110_CriaTabelasIdentity', '9.0.8');
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT RELEASE_LOCK('__ApiCatalogoDB_EFMigrationsLock')

@@ -7,6 +7,7 @@ using APICatalogo.Repositories;
 using APICatalogo.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Mapster;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,14 @@ builder.Services
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication("Bearer").AddJwtBearer();
+
+builder.Services
+    .AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 string? mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
