@@ -1,7 +1,7 @@
 ﻿using APICatalogo.DTOs;
 using APICatalogo.Models;
 using APICatalogo.Repositories.Interfaces;
-using AutoMapper;
+using Mapster;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,12 +12,10 @@ namespace APICatalogo.Controllers;
 public class ProdutosController : ControllerBase
 {
     private readonly IUnitOfWork _uof;
-    private readonly IMapper _mapper;
 
-    public ProdutosController(IUnitOfWork uof, IMapper mapper)
+    public ProdutosController(IUnitOfWork uof)
     {
         _uof = uof;
-        _mapper = mapper;
     }
 
     [HttpGet("produtos/{id}")]
@@ -28,8 +26,7 @@ public class ProdutosController : ControllerBase
         if (produtos is null)
             return NotFound();
 
-        //var destino = _mapper.Map<Destino>(origem);
-        var produtosDto = _mapper.Map<IEnumerable<ProdutoDTO>>(produtos);
+        var produtosDto = produtos.Adapt<IEnumerable<ProdutoDTO>>();
 
         return Ok(produtosDto);
     }
@@ -42,7 +39,7 @@ public class ProdutosController : ControllerBase
         {
             return NotFound();
         }
-        var produtosDto = _mapper.Map<IEnumerable<ProdutoDTO>>(produtos);
+        var produtosDto = produtos.Adapt<IEnumerable<ProdutoDTO>>();
         return Ok(produtosDto);
     }
 
@@ -54,7 +51,7 @@ public class ProdutosController : ControllerBase
         {
             return NotFound("Produto não encontrado...");
         }
-        var produtoDto = _mapper.Map<ProdutoDTO>(produto);
+        var produtoDto = produto.Adapt<ProdutoDTO>();
         return Ok(produtoDto);
     }
 
@@ -64,12 +61,12 @@ public class ProdutosController : ControllerBase
         if (produtoDto is null)
             return BadRequest();
 
-        var produto = _mapper.Map<Produto>(produtoDto);
+        var produto = produtoDto.Adapt<Produto>();
 
         var novoProduto = _uof.ProdutoRepository.Create(produto);
         _uof.Commit();
 
-        var novoProdutoDto = _mapper.Map<ProdutoDTO>(novoProduto);
+        var novoProdutoDto = novoProduto.Adapt<ProdutoDTO>();
 
         return new CreatedAtRouteResult("ObterProduto",
             new { id = novoProdutoDto.Id }, novoProdutoDto);
@@ -81,12 +78,12 @@ public class ProdutosController : ControllerBase
         if (id != produtoDto.Id)
             return BadRequest();//400
 
-        var produto = _mapper.Map<Produto>(produtoDto);
+        var produto = produtoDto.Adapt<Produto>();
 
         var produtoAtualizado = _uof.ProdutoRepository.Update(produto);
         _uof.Commit();
 
-        var produtoAtualizadoDto = _mapper.Map<ProdutoDTO>(produtoAtualizado);
+        var produtoAtualizadoDto = produtoAtualizado.Adapt<ProdutoDTO>();
 
         return Ok(produtoAtualizadoDto);
     }
@@ -108,7 +105,7 @@ public class ProdutosController : ControllerBase
             return NotFound();
 
         //mapeia produto para ProdutoDTOUpdateRequest
-        var produtoUpdateRequest = _mapper.Map<ProdutoDTOUpdateRequest>(produto);
+        var produtoUpdateRequest = produto.Adapt<ProdutoDTOUpdateRequest>();
 
         //aplica as alterações definidas no documento JSON Patch ao objeto ProdutoDTOUpdateRequest
         patchProdutoDto.ApplyTo(produtoUpdateRequest, ModelState);
@@ -117,7 +114,7 @@ public class ProdutosController : ControllerBase
             return BadRequest(ModelState);
 
         // Mapeia as alterações de volta para a entidade Produto
-        _mapper.Map(produtoUpdateRequest, produto);
+        produtoUpdateRequest.Adapt(produto);
 
         // Atualiza a entidade no repositório
         _uof.ProdutoRepository.Update(produto);
@@ -125,7 +122,7 @@ public class ProdutosController : ControllerBase
         _uof.Commit();
 
         //retorna ProdutoDTOUpdateResponse
-        return Ok(_mapper.Map<ProdutoDTOUpdateResponse>(produto));
+        return Ok(produto.Adapt<ProdutoDTOUpdateResponse>());
     }
 
     [HttpDelete("{id:int}")]
@@ -140,7 +137,7 @@ public class ProdutosController : ControllerBase
         var produtoDeletado = _uof.ProdutoRepository.Delete(produto);
         _uof.Commit();
 
-        var produtoDeletadoDto = _mapper.Map<ProdutoDTO>(produtoDeletado);
+        var produtoDeletadoDto = produtoDeletado.Adapt<ProdutoDTO>();
 
         return Ok(produtoDeletadoDto);
     }

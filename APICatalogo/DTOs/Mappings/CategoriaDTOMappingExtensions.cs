@@ -4,6 +4,8 @@ namespace APICatalogo.DTOs.Mappings;
 
 public static class CategoriaDTOMappingExtensions
 {
+
+    //mapper personalizado
     public static CategoriaDTO? ToCategoriaDTO(this Categoria categoria)
     {
         if (categoria is null) return null;

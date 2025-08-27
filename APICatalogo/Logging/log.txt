@@ -50,3 +50,20 @@ DELETE FROM `Categorias`
 WHERE `id` = @p0;
 SELECT ROW_COUNT();
 Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5207
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: D:\Estudo\estudo-web-api-asp-net-core\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 20101 - Executed DbCommand (22ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`id`, `p`.`categoria_id`, `p`.`data_cadastro`, `p`.`descricao`, `p`.`estoque`, `p`.`imagem_url`, `p`.`nome`, `p`.`preco`
+FROM `Produtos` AS `p`
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`id`, `p`.`categoria_id`, `p`.`data_cadastro`, `p`.`descricao`, `p`.`estoque`, `p`.`imagem_url`, `p`.`nome`, `p`.`preco`
+FROM `Produtos` AS `p`
+Information: 20101 - Executed DbCommand (15ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`id`, `p`.`categoria_id`, `p`.`data_cadastro`, `p`.`descricao`, `p`.`estoque`, `p`.`imagem_url`, `p`.`nome`, `p`.`preco`
+FROM `Produtos` AS `p`
+WHERE `p`.`id` = @__id_0
+LIMIT 1
+Information: 0 - Application is shutting down...
