@@ -173,3 +173,383 @@ INSERT INTO `__EFMigrationsHistory` (`migration_id`, `product_version`)
 VALUES ('20250827180110_CriaTabelasIdentity', '9.0.8');
 Information: 20101 - Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 SELECT RELEASE_LOCK('__ApiCatalogoDB_EFMigrationsLock')
+Information: 20411 - Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+Information: 20101 - Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT GET_LOCK('__ApiCatalogoDB_EFMigrationsLock', 259200)
+Information: 20101 - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
+    `migration_id` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
+    `product_version` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `pk___ef_migrations_history` PRIMARY KEY (`migration_id`)
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='ApiCatalogoDB' AND TABLE_NAME='__EFMigrationsHistory';
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `migration_id`, `product_version`
+FROM `__EFMigrationsHistory`
+ORDER BY `migration_id`;
+Information: 20402 - Applying migration '20250827215536_AjusteApplicationUser'.
+Information: 20101 - Executed DbCommand (85ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+ALTER TABLE `AspNetUsers` ADD `refresh_token` longtext CHARACTER SET utf8mb4 NULL;
+Information: 20101 - Executed DbCommand (103ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+ALTER TABLE `AspNetUsers` ADD `refresh_token_expiry_time` datetime(6) NOT NULL DEFAULT '0001-01-01 00:00:00';
+Information: 20101 - Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO `__EFMigrationsHistory` (`migration_id`, `product_version`)
+VALUES ('20250827215536_AjusteApplicationUser', '9.0.8');
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT RELEASE_LOCK('__ApiCatalogoDB_EFMigrationsLock')
+Information: 14 - Now listening on: http://localhost:5207
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: D:\Estudo\estudo-web-api-asp-net-core\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5207
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: D:\Estudo\estudo-web-api-asp-net-core\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5207
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: D:\Estudo\estudo-web-api-asp-net-core\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5207
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: D:\Estudo\estudo-web-api-asp-net-core\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 20101 - Executed DbCommand (30ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (5ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (9ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (Size = 256), @p4='?' (DbType = Boolean), @p5='?' (DbType = Boolean), @p6='?' (DbType = DateTimeOffset), @p7='?' (Size = 256), @p8='?' (Size = 256), @p9='?' (Size = 4000), @p10='?' (Size = 4000), @p11='?' (DbType = Boolean), @p12='?' (Size = 4000), @p13='?' (DbType = DateTime), @p14='?' (Size = 4000), @p15='?' (DbType = Boolean), @p16='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `AspNetUsers` (`id`, `access_failed_count`, `concurrency_stamp`, `email`, `email_confirmed`, `lockout_enabled`, `lockout_end`, `normalized_email`, `normalized_user_name`, `password_hash`, `phone_number`, `phone_number_confirmed`, `refresh_token`, `refresh_token_expiry_time`, `security_stamp`, `two_factor_enabled`, `user_name`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16);
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (25ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (Size = 256), @p4='?' (DbType = Boolean), @p5='?' (DbType = Boolean), @p6='?' (DbType = DateTimeOffset), @p7='?' (Size = 256), @p8='?' (Size = 256), @p9='?' (Size = 4000), @p10='?' (Size = 4000), @p11='?' (DbType = Boolean), @p12='?' (Size = 4000), @p13='?' (DbType = DateTime), @p14='?' (Size = 4000), @p15='?' (DbType = Boolean), @p16='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `AspNetUsers` (`id`, `access_failed_count`, `concurrency_stamp`, `email`, `email_confirmed`, `lockout_enabled`, `lockout_end`, `normalized_email`, `normalized_user_name`, `password_hash`, `phone_number`, `phone_number_confirmed`, `refresh_token`, `refresh_token_expiry_time`, `security_stamp`, `two_factor_enabled`, `user_name`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16);
+Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5207
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: D:\Estudo\estudo-web-api-asp-net-core\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 20101 - Executed DbCommand (34ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (8ms) [Parameters=[@__userId_0='?' (Size = 255)], CommandType='Text', CommandTimeout='30']
+SELECT `a0`.`name`
+FROM `AspNetUserRoles` AS `a`
+INNER JOIN `AspNetRoles` AS `a0` ON `a`.`role_id` = `a0`.`id`
+WHERE `a`.`user_id` = @__userId_0
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (9ms) [Parameters=[@p16='?' (Size = 255), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p17='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (DbType = Boolean), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTimeOffset), @p6='?' (Size = 256), @p7='?' (Size = 256), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (DbType = Boolean), @p11='?' (Size = 4000), @p12='?' (DbType = DateTime), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `AspNetUsers` SET `access_failed_count` = @p0, `concurrency_stamp` = @p1, `email` = @p2, `email_confirmed` = @p3, `lockout_enabled` = @p4, `lockout_end` = @p5, `normalized_email` = @p6, `normalized_user_name` = @p7, `password_hash` = @p8, `phone_number` = @p9, `phone_number_confirmed` = @p10, `refresh_token` = @p11, `refresh_token_expiry_time` = @p12, `security_stamp` = @p13, `two_factor_enabled` = @p14, `user_name` = @p15
+WHERE `id` = @p16 AND `concurrency_stamp` = @p17;
+SELECT ROW_COUNT();
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (141ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `AspNetRoles` (`id`, `concurrency_stamp`, `name`, `normalized_name`)
+VALUES (@p0, @p1, @p2, @p3);
+Information: 1 - Roles Added
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (4ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `AspNetRoles` (`id`, `concurrency_stamp`, `name`, `normalized_name`)
+VALUES (@p0, @p1, @p2, @p3);
+Information: 1 - Roles Added
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (17ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `AspNetRoles` (`id`, `concurrency_stamp`, `name`, `normalized_name`)
+VALUES (@p0, @p1, @p2, @p3);
+Information: 1 - Roles Added
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_email` = @__normalizedEmail_0
+LIMIT 2
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedRoleName_0
+LIMIT 2
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 255), @__p_1='?' (Size = 255)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`user_id`, `a`.`role_id`
+FROM `AspNetUserRoles` AS `a`
+WHERE (`a`.`user_id` = @__p_0) AND (`a`.`role_id` = @__p_1)
+LIMIT 1
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedRoleName_0
+LIMIT 2
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (Size = 255), @p18='?' (Size = 255), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p19='?' (Size = 4000), @p4='?' (Size = 256), @p5='?' (DbType = Boolean), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTimeOffset), @p8='?' (Size = 256), @p9='?' (Size = 256), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (DbType = Boolean), @p13='?' (Size = 4000), @p14='?' (DbType = DateTime), @p15='?' (Size = 4000), @p16='?' (DbType = Boolean), @p17='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `AspNetUserRoles` (`role_id`, `user_id`)
+VALUES (@p0, @p1);
+UPDATE `AspNetUsers` SET `access_failed_count` = @p2, `concurrency_stamp` = @p3, `email` = @p4, `email_confirmed` = @p5, `lockout_enabled` = @p6, `lockout_end` = @p7, `normalized_email` = @p8, `normalized_user_name` = @p9, `password_hash` = @p10, `phone_number` = @p11, `phone_number_confirmed` = @p12, `refresh_token` = @p13, `refresh_token_expiry_time` = @p14, `security_stamp` = @p15, `two_factor_enabled` = @p16, `user_name` = @p17
+WHERE `id` = @p18 AND `concurrency_stamp` = @p19;
+SELECT ROW_COUNT();
+Information: 1 - User gustavo@gmail.com added to the Admin role
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_email` = @__normalizedEmail_0
+LIMIT 2
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedRoleName_0
+LIMIT 2
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 255), @__p_1='?' (Size = 255)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`user_id`, `a`.`role_id`
+FROM `AspNetUserRoles` AS `a`
+WHERE (`a`.`user_id` = @__p_0) AND (`a`.`role_id` = @__p_1)
+LIMIT 1
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedRoleName_0
+LIMIT 2
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (Size = 255), @p18='?' (Size = 255), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p19='?' (Size = 4000), @p4='?' (Size = 256), @p5='?' (DbType = Boolean), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTimeOffset), @p8='?' (Size = 256), @p9='?' (Size = 256), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (DbType = Boolean), @p13='?' (Size = 4000), @p14='?' (DbType = DateTime), @p15='?' (Size = 4000), @p16='?' (DbType = Boolean), @p17='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `AspNetUserRoles` (`role_id`, `user_id`)
+VALUES (@p0, @p1);
+UPDATE `AspNetUsers` SET `access_failed_count` = @p2, `concurrency_stamp` = @p3, `email` = @p4, `email_confirmed` = @p5, `lockout_enabled` = @p6, `lockout_end` = @p7, `normalized_email` = @p8, `normalized_user_name` = @p9, `password_hash` = @p10, `phone_number` = @p11, `phone_number_confirmed` = @p12, `refresh_token` = @p13, `refresh_token_expiry_time` = @p14, `security_stamp` = @p15, `two_factor_enabled` = @p16, `user_name` = @p17
+WHERE `id` = @p18 AND `concurrency_stamp` = @p19;
+SELECT ROW_COUNT();
+Information: 1 - User gustavo@gmail.com added to the SuperAdmin role
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_email` = @__normalizedEmail_0
+LIMIT 2
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedRoleName_0
+LIMIT 2
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 255), @__p_1='?' (Size = 255)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`user_id`, `a`.`role_id`
+FROM `AspNetUserRoles` AS `a`
+WHERE (`a`.`user_id` = @__p_0) AND (`a`.`role_id` = @__p_1)
+LIMIT 1
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedRoleName_0
+LIMIT 2
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (Size = 255), @p18='?' (Size = 255), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p19='?' (Size = 4000), @p4='?' (Size = 256), @p5='?' (DbType = Boolean), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTimeOffset), @p8='?' (Size = 256), @p9='?' (Size = 256), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (DbType = Boolean), @p13='?' (Size = 4000), @p14='?' (DbType = DateTime), @p15='?' (Size = 4000), @p16='?' (DbType = Boolean), @p17='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `AspNetUserRoles` (`role_id`, `user_id`)
+VALUES (@p0, @p1);
+UPDATE `AspNetUsers` SET `access_failed_count` = @p2, `concurrency_stamp` = @p3, `email` = @p4, `email_confirmed` = @p5, `lockout_enabled` = @p6, `lockout_end` = @p7, `normalized_email` = @p8, `normalized_user_name` = @p9, `password_hash` = @p10, `phone_number` = @p11, `phone_number_confirmed` = @p12, `refresh_token` = @p13, `refresh_token_expiry_time` = @p14, `security_stamp` = @p15, `two_factor_enabled` = @p16, `user_name` = @p17
+WHERE `id` = @p18 AND `concurrency_stamp` = @p19;
+SELECT ROW_COUNT();
+Information: 1 - User maria@gmail.com added to the User role
+Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5207
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: D:\Estudo\estudo-web-api-asp-net-core\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 20101 - Executed DbCommand (29ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 255)], CommandType='Text', CommandTimeout='30']
+SELECT `a0`.`name`
+FROM `AspNetUserRoles` AS `a`
+INNER JOIN `AspNetRoles` AS `a0` ON `a`.`role_id` = `a0`.`id`
+WHERE `a`.`user_id` = @__userId_0
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (32ms) [Parameters=[@p16='?' (Size = 255), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p17='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (DbType = Boolean), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTimeOffset), @p6='?' (Size = 256), @p7='?' (Size = 256), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (DbType = Boolean), @p11='?' (Size = 4000), @p12='?' (DbType = DateTime), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `AspNetUsers` SET `access_failed_count` = @p0, `concurrency_stamp` = @p1, `email` = @p2, `email_confirmed` = @p3, `lockout_enabled` = @p4, `lockout_end` = @p5, `normalized_email` = @p6, `normalized_user_name` = @p7, `password_hash` = @p8, `phone_number` = @p9, `phone_number_confirmed` = @p10, `refresh_token` = @p11, `refresh_token_expiry_time` = @p12, `security_stamp` = @p13, `two_factor_enabled` = @p14, `user_name` = @p15
+WHERE `id` = @p16 AND `concurrency_stamp` = @p17;
+SELECT ROW_COUNT();
+Information: 20101 - Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`id`, `c`.`imagem_url`, `c`.`nome`
+FROM `Categorias` AS `c`
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 255)], CommandType='Text', CommandTimeout='30']
+SELECT `a0`.`name`
+FROM `AspNetUserRoles` AS `a`
+INNER JOIN `AspNetRoles` AS `a0` ON `a`.`role_id` = `a0`.`id`
+WHERE `a`.`user_id` = @__userId_0
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (20ms) [Parameters=[@p16='?' (Size = 255), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p17='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (DbType = Boolean), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTimeOffset), @p6='?' (Size = 256), @p7='?' (Size = 256), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (DbType = Boolean), @p11='?' (Size = 4000), @p12='?' (DbType = DateTime), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `AspNetUsers` SET `access_failed_count` = @p0, `concurrency_stamp` = @p1, `email` = @p2, `email_confirmed` = @p3, `lockout_enabled` = @p4, `lockout_end` = @p5, `normalized_email` = @p6, `normalized_user_name` = @p7, `password_hash` = @p8, `phone_number` = @p9, `phone_number_confirmed` = @p10, `refresh_token` = @p11, `refresh_token_expiry_time` = @p12, `security_stamp` = @p13, `two_factor_enabled` = @p14, `user_name` = @p15
+WHERE `id` = @p16 AND `concurrency_stamp` = @p17;
+SELECT ROW_COUNT();
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`id`, `c`.`imagem_url`, `c`.`nome`
+FROM `Categorias` AS `c`
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`id`, `c`.`imagem_url`, `c`.`nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`id` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (17ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+DELETE FROM `Categorias`
+WHERE `id` = @p0;
+SELECT ROW_COUNT();
+Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5207
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: D:\Estudo\estudo-web-api-asp-net-core\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 20101 - Executed DbCommand (32ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 255)], CommandType='Text', CommandTimeout='30']
+SELECT `a0`.`name`
+FROM `AspNetUserRoles` AS `a`
+INNER JOIN `AspNetRoles` AS `a0` ON `a`.`role_id` = `a0`.`id`
+WHERE `a`.`user_id` = @__userId_0
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (27ms) [Parameters=[@p16='?' (Size = 255), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p17='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (DbType = Boolean), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTimeOffset), @p6='?' (Size = 256), @p7='?' (Size = 256), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (DbType = Boolean), @p11='?' (Size = 4000), @p12='?' (DbType = DateTime), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `AspNetUsers` SET `access_failed_count` = @p0, `concurrency_stamp` = @p1, `email` = @p2, `email_confirmed` = @p3, `lockout_enabled` = @p4, `lockout_end` = @p5, `normalized_email` = @p6, `normalized_user_name` = @p7, `password_hash` = @p8, `phone_number` = @p9, `phone_number_confirmed` = @p10, `refresh_token` = @p11, `refresh_token_expiry_time` = @p12, `security_stamp` = @p13, `two_factor_enabled` = @p14, `user_name` = @p15
+WHERE `id` = @p16 AND `concurrency_stamp` = @p17;
+SELECT ROW_COUNT();
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`concurrency_stamp`, `a`.`name`, `a`.`normalized_name`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`normalized_name` = @__normalizedName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (23ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `AspNetRoles` (`id`, `concurrency_stamp`, `name`, `normalized_name`)
+VALUES (@p0, @p1, @p2, @p3);
+Information: 1 - Roles Added
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`access_failed_count`, `a`.`concurrency_stamp`, `a`.`email`, `a`.`email_confirmed`, `a`.`lockout_enabled`, `a`.`lockout_end`, `a`.`normalized_email`, `a`.`normalized_user_name`, `a`.`password_hash`, `a`.`phone_number`, `a`.`phone_number_confirmed`, `a`.`refresh_token`, `a`.`refresh_token_expiry_time`, `a`.`security_stamp`, `a`.`two_factor_enabled`, `a`.`user_name`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`normalized_user_name` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (136ms) [Parameters=[@p16='?' (Size = 255), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p17='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (DbType = Boolean), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTimeOffset), @p6='?' (Size = 256), @p7='?' (Size = 256), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (DbType = Boolean), @p11='?' (Size = 4000), @p12='?' (DbType = DateTime), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `AspNetUsers` SET `access_failed_count` = @p0, `concurrency_stamp` = @p1, `email` = @p2, `email_confirmed` = @p3, `lockout_enabled` = @p4, `lockout_end` = @p5, `normalized_email` = @p6, `normalized_user_name` = @p7, `password_hash` = @p8, `phone_number` = @p9, `phone_number_confirmed` = @p10, `refresh_token` = @p11, `refresh_token_expiry_time` = @p12, `security_stamp` = @p13, `two_factor_enabled` = @p14, `user_name` = @p15
+WHERE `id` = @p16 AND `concurrency_stamp` = @p17;
+SELECT ROW_COUNT();
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`id`, `c`.`imagem_url`, `c`.`nome`
+FROM `Categorias` AS `c`
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`id`, `c`.`imagem_url`, `c`.`nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`id` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (26ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+DELETE FROM `Categorias`
+WHERE `id` = @p0;
+SELECT ROW_COUNT();
+Information: 0 - Application is shutting down...
