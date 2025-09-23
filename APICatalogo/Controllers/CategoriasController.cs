@@ -6,12 +6,14 @@ using APICatalogo.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Newtonsoft.Json;
 using X.PagedList;
 
 namespace APICatalogo.Controllers;
 
 [EnableCors("OrigensComAcessoPermitido")]
+[EnableRateLimiting("fixedwindow")]
 [Route("[controller]")]
 [ApiController]
 public class CategoriasController : ControllerBase
@@ -76,6 +78,7 @@ public class CategoriasController : ControllerBase
     }
 
     [DisableCors]
+    [DisableRateLimiting]
     [HttpGet("{id:int}", Name = "ObterCategoria")]
     public async Task<ActionResult<CategoriaDTO>> Get(int id)
     {

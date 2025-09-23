@@ -14,6 +14,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using APICatalogo.Models;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
+using APICatalogo.RateLimitOptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -132,6 +135,39 @@ builder.Services.AddAuthorization(options =>
                       context.User.HasClaim(claim =>
                                            claim.Type == "id" && claim.Value == "gustavo")
                                            || context.User.IsInRole("SuperAdmin")));
+});
+
+var myOptions = new MyRateLimitOptions();
+
+builder.Configuration.GetSection(MyRateLimitOptions.MyRateLimit).Bind(myOptions);
+
+builder.Services.AddRateLimiter(rateLimiterOptions =>
+{
+    rateLimiterOptions.AddFixedWindowLimiter(policyName: "fixedwindow", options =>
+    {
+        options.PermitLimit = myOptions.PermitLimit;//1;
+        options.Window = TimeSpan.FromSeconds(myOptions.Window);
+        options.QueueLimit = myOptions.QueueLimit;//2;
+        options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    });
+    rateLimiterOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+});
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpcontext =>
+                            RateLimitPartition.GetFixedWindowLimiter(
+                                               partitionKey: httpcontext.User.Identity?.Name ??
+                                                             httpcontext.Request.Headers.Host.ToString(),
+                            factory: partition => new FixedWindowRateLimiterOptions
+                            {
+                                AutoReplenishment = true,
+                                PermitLimit = 2,
+                                QueueLimit = 0,
+                                Window = TimeSpan.FromSeconds(10)
+                            }));
 });
 
 builder.Services.AddScoped<ApiLoggingFilter>();
