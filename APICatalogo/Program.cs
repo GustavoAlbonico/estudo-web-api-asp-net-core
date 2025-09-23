@@ -26,6 +26,29 @@ builder.Services
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 // builder.Services.AddOpenApi(); //nativo
 
+// var OrigensComAcessoPermitido = "_origensComAcessoPermitido";
+
+// builder.Services.AddCors(options =>
+//    options.AddPolicy(name: OrigensComAcessoPermitido,
+//    policy =>
+//    {
+//        policy.WithOrigins("http://www.apirequest.io");
+//    })
+// );
+
+
+builder.Services.AddCors(options =>
+   options.AddPolicy("OrigensComAcessoPermitido",
+   policy =>
+   {
+       policy.WithOrigins("http://www.apirequest.io")
+       .WithMethods("GET", "POST")
+       .AllowAnyHeader()
+       .AllowCredentials();
+   })
+);
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -144,9 +167,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+// app.UseCors(OrigensComAcessoPermitido);
+app.UseCors();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
