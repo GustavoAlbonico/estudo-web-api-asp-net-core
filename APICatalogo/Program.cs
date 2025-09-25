@@ -56,7 +56,25 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "apicatalogo", Version = "v1" });
+    // c.SwaggerDoc("v1", new OpenApiInfo { Title = "apicatalogo", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "APICatalogo",
+        Description = "Catalogo de Produtos e Categorias",
+        TermsOfService = new Uri("https://github.com/GustavoAlbonico"),
+        Contact = new OpenApiContact
+        {
+            Name = "gustavo",
+            Email = "gustavoalbonico@hotmail.com.br",
+            Url = new Uri("https://github.com/GustavoAlbonico"),
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Usar sobre LICX",
+            Url = new Uri("https://github.com/GustavoAlbonico"),
+        }
+    });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
