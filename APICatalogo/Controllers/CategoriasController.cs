@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using X.PagedList;
 
@@ -22,12 +23,18 @@ public class CategoriasController : ControllerBase
     private readonly IUnitOfWork _uof;
     private readonly ILogger<CategoriasController> _logger;
 
-    public CategoriasController(IUnitOfWork uof,
-        ILogger<CategoriasController> logger)
-    {
+    private readonly IMemoryCache _cache;
+    private const string CacheCategoriasKey = "CacheCategorias";
 
+    public CategoriasController(
+        IUnitOfWork uof,
+        ILogger<CategoriasController> logger,
+        IMemoryCache cache
+    )
+    {
         _logger = logger;
         _uof = uof;
+        _cache = cache;
     }
 
     /// <summary>
@@ -41,13 +48,19 @@ public class CategoriasController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult<IEnumerable<CategoriaDTO>>> Get()
     {
+        if (_cache.TryGetValue(CacheCategoriasKey, out IEnumerable<CategoriaDTO>? categoriasDto))
+            return Ok(categoriasDto);
+
         var categorias = await _uof.CategoriaRepository.GetAllAsync();
 
-        if (categorias is null)
+        if (categorias is null || !categorias.Any())
+        {
+            _logger.LogWarning("Não existem categorias...");
             return NotFound("Não existem categorias...");
+        }
 
-        var categoriasDto = categorias.ToCategoriaDTOList();
-
+        categoriasDto = categorias.ToCategoriaDTOList();
+        SetCache(CacheCategoriasKey, categoriasDto);
         return Ok(categoriasDto);
     }
 
@@ -149,7 +162,7 @@ public class CategoriasController : ControllerBase
             novaCategoriaDto);
     }
 
-        [HttpPut("{id:int}")]
+    [HttpPut("{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
@@ -192,5 +205,28 @@ public class CategoriasController : ControllerBase
         var categoriaExcluidaDto = categoriaExcluida.ToCategoriaDTO();
 
         return Ok(categoriaExcluidaDto);
+    }
+
+    private string GetCategoriaCacheKey(int id) => $"CacheCategoria_{id}";
+
+    private void SetCache<T>(string key, T data)
+    {
+        var cacheOptions = new MemoryCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30),
+            SlidingExpiration = TimeSpan.FromSeconds(15),
+            Priority = CacheItemPriority.High
+        };
+
+        _cache.Set(key, data, cacheOptions);
+    }
+
+    private void InvalidateCacheAfterChange(int id, Categoria? categoria = null)
+    {
+        _cache.Remove(CacheCategoriasKey);
+        _cache.Remove(GetCategoriaCacheKey(id));
+
+        if (categoria != null)
+            SetCache(GetCategoriaCacheKey(id), categoria);
     }
 }

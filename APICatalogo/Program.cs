@@ -217,6 +217,7 @@ builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderCon
 }));
 
 builder.Services.AddMapster();
+builder.Services.AddMemoryCache();
 // builder.Services.AddAutoMapper(typeof(ProdutoDTOMappingProfile));//auto mapper
 
 var app = builder.Build();
