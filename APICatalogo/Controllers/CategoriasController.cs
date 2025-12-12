@@ -110,6 +110,11 @@ public class CategoriasController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<CategoriaDTO>> Get(int id)
     {
+        var cacheKey = GetCategoriaCacheKey(id);
+
+        if (!_cache.TryGetValue(cacheKey, out CategoriaDTO? categoriaDto))
+            return Ok(categoriaDto);
+
         var categoria = await _uof.CategoriaRepository.GetAsync(c => c.Id == id);
 
         if (categoria is null)
@@ -118,8 +123,8 @@ public class CategoriasController : ControllerBase
             return NotFound($"Categoria com id= {id} não encontrada...");
         }
 
-        var categoriaDto = categoria.ToCategoriaDTO();
-
+        categoriaDto = categoria.ToCategoriaDTO();
+        SetCache(cacheKey, categoriaDto);
         return Ok(categoriaDto);
     }
 
@@ -156,6 +161,7 @@ public class CategoriasController : ControllerBase
         await _uof.CommitAsync();
 
         var novaCategoriaDto = categoriaCriada.ToCategoriaDTO();
+        InvalidateCacheAfterChange(categoriaCriada.Id, novaCategoriaDto);
 
         return new CreatedAtRouteResult("ObterCategoria",
             new { id = novaCategoriaDto.Id },
@@ -168,7 +174,7 @@ public class CategoriasController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult<CategoriaDTO>> Put(int id, CategoriaDTO categoriaDto)
     {
-        if (id != categoriaDto.Id)
+        if (id <= 0 || categoriaDto is null || id != categoriaDto.Id)
         {
             _logger.LogWarning($"Dados inválidos...");
             return BadRequest("Dados inválidos");
@@ -180,6 +186,7 @@ public class CategoriasController : ControllerBase
         await _uof.CommitAsync();
 
         var categoriaAtualizadaDto = categoriaAtualizada.ToCategoriaDTO();
+        InvalidateCacheAfterChange(id,categoriaAtualizadaDto);
 
         return Ok(categoriaAtualizadaDto);
     }
@@ -203,6 +210,7 @@ public class CategoriasController : ControllerBase
         await _uof.CommitAsync();
 
         var categoriaExcluidaDto = categoriaExcluida.ToCategoriaDTO();
+        InvalidateCacheAfterChange(id);
 
         return Ok(categoriaExcluidaDto);
     }
@@ -221,12 +229,12 @@ public class CategoriasController : ControllerBase
         _cache.Set(key, data, cacheOptions);
     }
 
-    private void InvalidateCacheAfterChange(int id, Categoria? categoria = null)
+    private void InvalidateCacheAfterChange(int id, CategoriaDTO? categoriaDto = null)
     {
         _cache.Remove(CacheCategoriasKey);
         _cache.Remove(GetCategoriaCacheKey(id));
 
-        if (categoria != null)
-            SetCache(GetCategoriaCacheKey(id), categoria);
+        if (categoriaDto != null)
+            SetCache(GetCategoriaCacheKey(id), categoriaDto);
     }
 }
