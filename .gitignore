@@ -52,3 +52,24 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+*.pfx
+*.tmp
+*.temp
+
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+.idea/
+.vscode/
+
+# ===============================
+# Visual Studio
+# ===============================
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
