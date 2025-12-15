@@ -25,7 +25,6 @@ namespace CategoriasMvc.Services
         public async Task<IEnumerable<CategoriaViewModel>> GetCategorias()
         {
             var client = _clientFactory.CreateClient("CategoriasApi");
-            Console.WriteLine($"\n\n{client.BaseAddress}{apiEndpoint}\n\n");
             using (var response = await client.GetAsync(apiEndpoint))
             {
                 if (response.IsSuccessStatusCode)
@@ -64,7 +63,7 @@ namespace CategoriasMvc.Services
             return categoriaVM;
         }
 
-        public async Task<CategoriaViewModel> CriaCategoria(CategoriaViewModel categoriaVM)
+        public async Task<CategoriaViewModel> CriarCategoria(CategoriaViewModel categoriaVM)
         {
             var client = _clientFactory.CreateClient("CategoriasApi");
             var categoria = JsonSerializer.Serialize(categoriaVM);
@@ -87,7 +86,7 @@ namespace CategoriasMvc.Services
             return categoriaVM;
         }
 
-        public async Task<bool> AtualizaCategoria(int id, CategoriaViewModel categoriaVM)
+        public async Task<bool> AtualizarCategoria(int id, CategoriaViewModel categoriaVM)
         {
             var client = _clientFactory.CreateClient("CategoriasApi");
             using (var response = await client.PutAsJsonAsync(apiEndpoint + id, categoriaVM))
@@ -103,7 +102,7 @@ namespace CategoriasMvc.Services
             }
         }
 
-        public async Task<bool> DeletaCategoria(int id)
+        public async Task<bool> DeletarCategoria(int id)
         {
             var client = _clientFactory.CreateClient("CategoriasApi");
 

@@ -8,7 +8,7 @@ namespace CategoriasMvc.Models
         [Required(ErrorMessage = "O nome da categoria é obrigatório")]
         public string? Nome { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "A Imagem da categoria é obrigatória")]
         [Display(Name = "Imagem")]
         public string? ImagemUrl { get; set; } = string.Empty;
     }
