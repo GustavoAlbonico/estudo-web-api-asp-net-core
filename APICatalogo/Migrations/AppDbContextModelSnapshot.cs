@@ -22,7 +22,7 @@ namespace APICatalogo.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("APICatalogo.Models.AplicationUser", b =>
+            modelBuilder.Entity("APICatalogo.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)")
@@ -377,7 +377,7 @@ namespace APICatalogo.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("APICatalogo.Models.AplicationUser", null)
+                    b.HasOne("APICatalogo.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -387,7 +387,7 @@ namespace APICatalogo.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("APICatalogo.Models.AplicationUser", null)
+                    b.HasOne("APICatalogo.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -404,7 +404,7 @@ namespace APICatalogo.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_asp_net_user_roles_asp_net_roles_role_id");
 
-                    b.HasOne("APICatalogo.Models.AplicationUser", null)
+                    b.HasOne("APICatalogo.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -414,7 +414,7 @@ namespace APICatalogo.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("APICatalogo.Models.AplicationUser", null)
+                    b.HasOne("APICatalogo.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

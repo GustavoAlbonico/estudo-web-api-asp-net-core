@@ -11,7 +11,7 @@ using X.PagedList;
 
 namespace APICatalogo.Controllers;
 
-[Route("[controller]")]
+[Route("api/produtos")]
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 public class ProdutosController : ControllerBase

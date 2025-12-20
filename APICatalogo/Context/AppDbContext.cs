@@ -16,7 +16,3 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         base.OnModelCreating(builder);
     }
 }
-
-public class AplicationUser
-{
-}

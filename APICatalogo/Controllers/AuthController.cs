@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace APICatalogo.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/autoriza")]
 [ApiController]
 public class AuthController : ControllerBase
 {

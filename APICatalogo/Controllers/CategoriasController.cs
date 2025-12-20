@@ -16,7 +16,7 @@ namespace APICatalogo.Controllers;
 [ApiController]
 [EnableCors("OrigensComAcessoPermitido")]
 [EnableRateLimiting("fixedwindow")]
-[Route("[controller]")]
+[Route("api/categorias")]
 [Produces("application/json")]
 public class CategoriasController : ControllerBase
 {
@@ -112,7 +112,7 @@ public class CategoriasController : ControllerBase
     {
         var cacheKey = GetCategoriaCacheKey(id);
 
-        if (!_cache.TryGetValue(cacheKey, out CategoriaDTO? categoriaDto))
+        if (_cache.TryGetValue(cacheKey, out CategoriaDTO? categoriaDto))
             return Ok(categoriaDto);
 
         var categoria = await _uof.CategoriaRepository.GetAsync(c => c.Id == id);
