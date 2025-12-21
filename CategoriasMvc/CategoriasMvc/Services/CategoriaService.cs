@@ -8,7 +8,7 @@ namespace CategoriasMvc.Services
     public class CategoriaService : ICategoriaService
     {
 
-        private const string ApiEndpoint = "/api/1/categorias/";
+        private const string ApiEndpoint = "api/categorias/";
 
         private readonly JsonSerializerOptions _options;
         private readonly IHttpClientFactory _clientFactory;

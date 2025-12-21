@@ -7,7 +7,7 @@ namespace CategoriasMvc.Services
 {
     public class AutenticacaoService : IAutenticacaoService
     {
-        private const string ApiEndpointAutentica = "/api/autoriza/login";
+        private const string ApiEndpointAutentica = "api/autoriza/login";
         private readonly IHttpClientFactory _clientFactory;
         private readonly JsonSerializerOptions _options;
         private TokenViewModel _tokenUsuario;
@@ -32,6 +32,8 @@ namespace CategoriasMvc.Services
                     _tokenUsuario = await JsonSerializer
                                 .DeserializeAsync<TokenViewModel>
                                 (apiResponse,_options);
+
+                    Console.WriteLine($"\n\n {_tokenUsuario}  \n\n");
                 } else
                 {
                     return null;
