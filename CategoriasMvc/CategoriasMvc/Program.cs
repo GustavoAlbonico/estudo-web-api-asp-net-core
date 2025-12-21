@@ -19,6 +19,13 @@ builder.Services.AddHttpClient("AutenticaApi", c =>
     c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 });
 
+builder.Services.AddHttpClient("ProdutosApi", c =>
+{
+    c.BaseAddress = new Uri(builder.Configuration["ServiceUri:ProdutosApi"]);
+    c.DefaultRequestHeaders.Accept.Clear();
+    c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+});
+
 builder.Services.AddScoped<ICategoriaService,CategoriaService>();
 builder.Services.AddScoped<IAutenticacaoService, AutenticacaoService>();
 
