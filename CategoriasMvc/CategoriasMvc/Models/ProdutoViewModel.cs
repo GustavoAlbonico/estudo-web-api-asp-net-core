@@ -16,8 +16,14 @@ public class ProdutoViewModel
     public decimal Preco {  get; set; }
 
     [Display(Name = "Caminho da Imagem")]
+    [Required(ErrorMessage = "A imagem do produto é obrigatória")]
     public string? ImagemUrl { get; set; }
 
     [Display(Name = "Categoria")]
     public int CategoriaId { get; set; }
+
+    public override string? ToString()
+    {
+        return $"Id:{Id}\nNome {Nome}\nDescricao {Descricao}\nPreco {Preco}\nImagemUrl {ImagemUrl}\nCategoriaId {CategoriaId}";
+    }
 }

@@ -32,8 +32,6 @@ namespace CategoriasMvc.Services
                     _tokenUsuario = await JsonSerializer
                                 .DeserializeAsync<TokenViewModel>
                                 (apiResponse,_options);
-
-                    Console.WriteLine($"\n\n {_tokenUsuario}  \n\n");
                 } else
                 {
                     return null;

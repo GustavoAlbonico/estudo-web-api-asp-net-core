@@ -25,6 +25,7 @@ namespace CategoriasMvc.Services
         public async Task<IEnumerable<CategoriaViewModel>> GetCategorias()
         {
             var client = _clientFactory.CreateClient("CategoriasApi");
+          
             using (var response = await client.GetAsync(ApiEndpoint))
             {
                 if (response.IsSuccessStatusCode)

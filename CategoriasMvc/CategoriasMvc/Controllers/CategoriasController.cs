@@ -64,8 +64,6 @@ namespace CategoriasMvc.Controllers
         [HttpPost]
         public async Task<ActionResult<CategoriaViewModel>> AtualizarCategoria(int id, CategoriaViewModel categoriaVM)
         {
-
-            Console.WriteLine($"\n\n{categoriaVM.ImagemUrl}{id}\n\n");
             if (ModelState.IsValid)
             {
                 var result = await _categoriaService.AtualizarCategoria(id, categoriaVM);

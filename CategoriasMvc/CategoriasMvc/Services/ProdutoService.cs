@@ -36,9 +36,12 @@ public class ProdutoService : IProdutoService
                 _produtosVM = await JsonSerializer.
                     DeserializeAsync<IEnumerable<ProdutoViewModel>>
                     (apiResponse, _options);
+
+               
             }
             else
             {
+                Console.WriteLine($"\n\n lista: {_produtosVM}");
                 return null;
             }
         }
