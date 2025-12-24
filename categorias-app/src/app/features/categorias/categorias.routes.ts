@@ -20,7 +20,7 @@ export const CATEGORIAS_ROUTES: Routes = [
         .then(categoria => categoria.CategoriasForm)
   },
   {
-    path: ':id',
+    path: ':id/visualizar',
     loadComponent: () =>
       import('./pages/categorias-view/categorias-view')
         .then(categoria => categoria.CategoriasView)
