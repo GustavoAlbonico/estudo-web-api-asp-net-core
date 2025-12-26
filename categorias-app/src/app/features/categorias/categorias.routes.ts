@@ -18,11 +18,5 @@ export const CATEGORIAS_ROUTES: Routes = [
     loadComponent: () =>
       import('./pages/categorias-form/categorias-form')
         .then(categoria => categoria.CategoriasForm)
-  },
-  {
-    path: ':id/visualizar',
-    loadComponent: () =>
-      import('./pages/categorias-view/categorias-view')
-        .then(categoria => categoria.CategoriasView)
   }
 ];
