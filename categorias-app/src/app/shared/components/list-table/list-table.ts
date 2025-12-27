@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { required } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-list-table',
@@ -6,6 +7,15 @@ import { Component } from '@angular/core';
   templateUrl: './list-table.html',
   styleUrl: './list-table.css',
 })
-export class ListTable {
 
+interface IListTable {
+  thead:string[],
+  tbody: {
+    fieldName:string[],
+    data:object[]
+  }
+};
+
+export class ListTable {
+    tableDatas = input.required<IListTable>()
 }
