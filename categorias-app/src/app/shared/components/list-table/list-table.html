@@ -1,37 +1,53 @@
 <table class="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden">
-    <thead class="bg-gray-100">
-        <tr>
-            @for (name of tHeadData; track $index) {
+  <thead class="bg-gray-100">
+    <tr>
+      @for (col of columns(); track col.key) {
+        <th
+          class="px-4 py-3 text-xs font-bold text-gray-600 uppercase"
+          [class]="alignClass(col.align)"
+        >
+          {{ col.label }}
+        </th>
+      }
 
-            }
-            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase">
-                Nome
-            </th>
-            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase">
-                Preço
-            </th>
-            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase">
-                Categoria
-            </th>
-            <th class="px-4 py-3 text-center text-xs font-bold text-gray-600 uppercase">
-                Ações
-            </th>
-        </tr>
-    </thead>
-    <tbody class="divide-y divide-gray-200">
-        <tr class="hover:bg-gray-50 transition">
-            <td class="px-4 py-2 text-sm">Farinha</td>
-            <td class="px-4 py-2 text-sm">R$ 59,60</td>
-            <td class="px-4 py-2 text-sm">Alimentos</td>
-            <td class="px-4 py-2 text-sm flex justify-center items-center gap-1">
-                <a class="block p-1.5 rounded bg-yellow-600 hover:bg-yellow-700 transition"
-                    routerLink="/categorias/id/editar">
-                    <i class="fa-solid fa-pen-to-square text-xl text-gray-50 align-bottom"></i>
-                </a>
-                <a class="block p-1.5 rounded bg-red-400 cursor-pointer hover:bg-red-500 transition" onclick="">
-                    <i class="fa-solid fa-trash text-xl text-gray-50 align-bottom"></i>
-                </a>
-            </td>
-        </tr>
-    </tbody>
+      @if (showActions()) {
+        <th class="px-4 py-3 text-center text-xs font-bold text-gray-600 uppercase">
+          Ações
+        </th>
+      }
+    </tr>
+  </thead>
+
+  <tbody class="divide-y divide-gray-200">
+    @for (item of items(); track $index) {
+      <tr class="hover:bg-gray-50 transition">
+        @for (col of columns(); track col.key) {
+          <td
+            class="px-4 py-2 text-sm"
+            [class]="alignClass(col.align)"
+          >
+            {{ item[col.key] }}
+          </td>
+        }
+
+        @if (showActions()) {
+          <td class="px-4 py-2 text-sm flex justify-center items-center gap-1">
+            <button
+              class="p-1.5 rounded bg-yellow-600 cursor-pointer hover:bg-yellow-700 transition"
+              (click)="edit.emit(item)"
+            >
+              <i class="fa-solid fa-pen-to-square text-xl text-gray-50"></i>
+          </button>
+
+            <button
+              class="p-1.5 rounded bg-red-500 cursor-pointer hover:bg-red-600 transition"
+              (click)="remove.emit(item)"
+            >
+              <i class="fa-solid fa-trash text-xl text-gray-50"></i>
+            </button>
+          </td>
+        }
+      </tr>
+    }
+  </tbody>
 </table>

@@ -1,21 +1,28 @@
-import { Component, input } from '@angular/core';
-import { required } from '@angular/forms/signals';
+import { Component, input, output } from '@angular/core';
+import { TableColumn } from '../../models/table-columnm.model';
 
 @Component({
   selector: 'app-list-table',
   imports: [],
   templateUrl: './list-table.html',
-  styleUrl: './list-table.css',
 })
 
-interface IListTable {
-  thead:string[],
-  tbody: {
-    fieldName:string[],
-    data:object[]
-  }
-};
+export class ListTable<T extends Record<string, any>> {
+  items = input<T[]>([]);
+  columns = input<TableColumn[]>([]);
+  showActions = input<boolean>(true);
 
-export class ListTable {
-    tableDatas = input.required<IListTable>()
+  edit = output<T>();
+  remove = output<T>();
+
+  alignClass(align?: string) {
+    switch (align) {
+      case 'center':
+        return 'text-center';
+      case 'right':
+        return 'text-right';
+      default:
+        return 'text-left';
+    }
+  }
 }

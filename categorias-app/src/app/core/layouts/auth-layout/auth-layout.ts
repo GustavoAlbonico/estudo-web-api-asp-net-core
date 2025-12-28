@@ -6,7 +6,6 @@ import { Sidebar } from '../sidebar/sidebar';
   selector: 'app-auth-layout',
   imports: [RouterOutlet, Sidebar],
   templateUrl: './auth-layout.html',
-  styleUrl: './auth-layout.css',
 })
 export class AuthLayout {
 
