@@ -1,0 +1,14 @@
+<div class="flex items-center justify-between my-3">
+    <div>
+        <h2 class="inline mr-2 text-3xl">{{title()}}</h2>
+        <small class="text-gray-600">{{subtitle()}}</small>
+    </div>
+    <div>
+        <button
+            class="block p-4 py-2 rounded bg-green-700 text-gray-50 font-medium cursor-pointer"
+            (click)="actionEvent.emit()"
+        >
+            {{actionLabel()}}
+        </button>
+    </div>
+</div>

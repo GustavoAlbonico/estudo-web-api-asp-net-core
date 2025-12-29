@@ -8,30 +8,28 @@ import { environment } from '../../../environments/environment.development';
 })
 export class AuthService {
   private httpClient = inject(HttpClient);
-
   private readonly API_ENDPOINT_AUTH = `${environment.apiAuth}/api/autoriza`;
+  private _accessToken = signal<string | null>(null);
 
-  private _token = signal<string | null>(
-    localStorage.getItem('token')
-  );
-
-  isAuthenticated = computed(() => !!this._token());
+  isAuthenticated = computed(() => !!this._accessToken());
 
   login(data: LoginRequest) {
-    return this.httpClient.post<LoginResponse>(`${this.API_ENDPOINT_AUTH}/login`, data);
+    return this.httpClient.post<LoginResponse>(`${this.API_ENDPOINT_AUTH}/login`, data, { withCredentials: true })
   }
 
-  setSession(response: LoginResponse) {
-    this._token.set(response.token);
-    localStorage.setItem('token', response.token);
+  refresh() {
+    return this.httpClient.post<{ accessToken: string }>(`${this.API_ENDPOINT_AUTH}/refresh-token`, {}, { withCredentials: true });
+  }
+
+  setAccessToken(token: string) {
+    this._accessToken.set(token);
+  }
+
+  accessToken() {
+    return this._accessToken();
   }
 
   logout() {
-    this._token.set(null);
-    localStorage.removeItem('token');
-  }
-
-  get token() {
-    return this._token();
+    this._accessToken.set(null);
   }
 }

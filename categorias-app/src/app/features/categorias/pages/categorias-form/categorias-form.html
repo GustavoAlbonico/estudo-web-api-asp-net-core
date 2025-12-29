@@ -1,1 +1,29 @@
-<p>categorias-form works!</p>
+<section>
+    <app-page-header 
+      title="Categorias" 
+      [subtitle]="isEdit() ? 'Editar' : 'Nova'"
+      actionLabel="Voltar" 
+      (actionEvent)="onBack()" 
+    />
+    <div class="max-w-xl p-6 bg-gray-200 shadow rounded">
+        <form [formGroup]="form" (ngSubmit)="onSave()" class="space-y-4">
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Nome</label>
+                <input type="text" formControlName="nome" class="w-full border rounded px-3 py-2" />
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Imagem URL</label>
+                <input type="text" formControlName="imagemUrl" class="w-full border rounded px-3 py-2" />
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4">
+                <button type="submit" class="px-4 py-2 bg-green-700 text-white rounded cursor-pointer">
+                    {{ isEdit() ? 'Atualizar' : 'Salvar' }}
+                </button>
+            </div>
+
+        </form>
+    </div>
+</section>

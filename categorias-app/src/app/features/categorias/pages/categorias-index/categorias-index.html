@@ -1,10 +1,8 @@
-@if (loading()) {
+<section>
+  <app-page-header title="Categorias" subtitle="Listagem" actionLabel="Nova" (actionEvent)="onCreate()" />
+  @if (loading()) {
   <p class="text-gray-500 text-sm">Carregando categorias...</p>
-} @else { 
-<app-list-table
-  [items]="categorias()"
-  [columns]="columns"
-  (edit)="edit($event)"
-  (remove)="remove($event)"
-/>
-}
+  } @else {
+  <app-list-table [items]="categorias()" [columns]="columns" (edit)="onEdit($event)" (remove)="onRemove($event)" />
+  }
+</section>

@@ -29,7 +29,7 @@ export class Login {
       })
       .subscribe({
         next: (res) => {
-          this.authService.setSession(res);
+          this.authService.setAccessToken(res.token);
           this.router.navigate(['/']);
         },
         error: () => {
