@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -35,7 +36,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Policy ="SuperAdminOnly")]
+    [Authorize(Policy = "SuperAdminOnly")]
     [Route("CreateRole")]
     public async Task<IActionResult> CreateRole(string roleName)
     {
@@ -49,15 +50,23 @@ public class AuthController : ControllerBase
             {
                 _logger.LogInformation(1, "Roles Added");
                 return StatusCode(StatusCodes.Status200OK,
-                        new ResponseDTO { Status = "Success", Message = 
-                        $"Role {roleName} added successfully" });
+                        new ResponseDTO
+                        {
+                            Status = "Success",
+                            Message =
+                        $"Role {roleName} added successfully"
+                        });
             }
             else
             {
                 _logger.LogInformation(2, "Error");
                 return StatusCode(StatusCodes.Status400BadRequest,
-                   new ResponseDTO { Status = "Error", Message = 
-                       $"Issue adding the new {roleName} role" });
+                   new ResponseDTO
+                   {
+                       Status = "Error",
+                       Message =
+                       $"Issue adding the new {roleName} role"
+                   });
             }
         }
         return StatusCode(StatusCodes.Status400BadRequest,
@@ -74,12 +83,16 @@ public class AuthController : ControllerBase
         if (user != null)
         {
             var result = await _userManager.AddToRoleAsync(user, roleName);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 _logger.LogInformation(1, $"User {user.Email} added to the {roleName} role");
                 return StatusCode(StatusCodes.Status200OK,
-                       new ResponseDTO { Status = "Success", Message = 
-                       $"User {user.Email} added to the {roleName} role" });
+                       new ResponseDTO
+                       {
+                           Status = "Success",
+                           Message =
+                       $"User {user.Email} added to the {roleName} role"
+                       });
             }
             else
             {
@@ -87,7 +100,7 @@ public class AuthController : ControllerBase
                 return StatusCode(StatusCodes.Status400BadRequest, new ResponseDTO
                 {
                     Status = "Error",
-                    Message =$"Error: Unable to add user {user.Email} to the {roleName} role"
+                    Message = $"Error: Unable to add user {user.Email} to the {roleName} role"
                 });
             }
         }
@@ -132,10 +145,17 @@ public class AuthController : ControllerBase
 
             await _userManager.UpdateAsync(user);
 
+            Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Expires = user.RefreshTokenExpiryTime
+            });
+
             return Ok(new
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
-                RefreshToken = refreshToken,
                 Expiration = token.ValidTo,
                 User = new
                 {
@@ -145,6 +165,7 @@ public class AuthController : ControllerBase
                 }
             });
         }
+
         return Unauthorized();
         //return Forbid();
     }
@@ -182,54 +203,43 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route("refresh-token")]
-    public async Task<IActionResult> RefreshToken(TokenModelDTO tokenModel)
+    public async Task<IActionResult> RefreshToken()
     {
 
-        if (tokenModel is null)
+        if (!Request.Cookies.TryGetValue("refreshToken", out var refreshToken))
+            return Unauthorized();
+
+        var user = await _userManager.Users
+            .FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
+
+        if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            return Unauthorized();
+
+        var claims = new List<Claim>
         {
-            return BadRequest("Invalid client request");
-        }
+            new Claim(ClaimTypes.Name, user.UserName!)
+        };
 
-        string? accessToken = tokenModel.AccessToken
-                              ?? throw new ArgumentNullException(nameof(tokenModel));
-
-        string? refreshToken = tokenModel.RefreshToken
-                               ?? throw new ArgumentException(nameof(tokenModel));
-
-        var principal = _tokenService.GetPrincipalFromExpiredToken(accessToken!, _configuration);
-
-        if (principal == null)
-        {
-            return BadRequest("Invalid access token/refresh token");
-        }
-
-        string username = principal.Identity.Name;
-
-        var user = await _userManager.FindByNameAsync(username!);
-
-        if (user == null || user.RefreshToken != refreshToken
-                         || user.RefreshTokenExpiryTime <= DateTime.Now)
-        {
-            return BadRequest("Invalid access token/refresh token");
-        }
-
-        var newAccessToken = _tokenService.GenerateAccessToken(
-                                           principal.Claims.ToList(), _configuration);
-
+        var newAccessToken = _tokenService.GenerateAccessToken(claims, _configuration);
         var newRefreshToken = _tokenService.GenerateRefreshToken();
 
         user.RefreshToken = newRefreshToken;
-
         await _userManager.UpdateAsync(user);
 
-        return new ObjectResult(new
+        Response.Cookies.Append("refreshToken", newRefreshToken, new CookieOptions
         {
-            accessToken = new JwtSecurityTokenHandler().WriteToken(newAccessToken),
-            refreshToken = newRefreshToken
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.None
+        });
+
+        return Ok(new
+        {
+            accessToken = new JwtSecurityTokenHandler().WriteToken(newAccessToken)
         });
     }
 
-    [Authorize(Policy ="ExclusiveOnly")]
+    [Authorize(Policy = "ExclusiveOnly")]
     [HttpPost]
     [Route("revoke/{username}")]
     public async Task<IActionResult> Revoke(string username)
