@@ -34,6 +34,7 @@ public class Produto
     public DateTime DataCadastro { get; set; }
     public int CategoriaId { get; set; }
 
+    [UseSorting]//graphQL
     [JsonIgnore] //não exige a necessidade de informar esse campo
     [BindNever] //faz não vincular informações ao parametro
     public Categoria? Categoria { get; set; }

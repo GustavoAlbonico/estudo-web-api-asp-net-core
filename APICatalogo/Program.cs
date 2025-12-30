@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
 using APICatalogo.RateLimitOptions;
 using Asp.Versioning;
+using APICatalogo.GraphQL.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -225,6 +226,13 @@ builder.Services.AddMapster();
 builder.Services.AddMemoryCache();
 // builder.Services.AddAutoMapper(typeof(ProdutoDTOMappingProfile));//auto mapper
 
+builder.Services.AddGraphQLServer()//graphQL
+                .AddQueryType(d => d.Name("Query"))
+                .AddTypeExtension<ProdutoQueries>()
+                .AddFiltering()
+                .AddSorting()
+                .AddProjections();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -247,5 +255,5 @@ app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthorization();
 app.MapControllers();
-
+app.MapGraphQL("/api/graphql");
 app.Run();
