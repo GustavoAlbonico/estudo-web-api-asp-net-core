@@ -206,10 +206,8 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> RefreshToken()
     {
 
-        Console.WriteLine($"\n AAAAAAAAAAAAAAAAAAAAAAAAAA \n");
         if (!Request.Cookies.TryGetValue("refreshToken", out var refreshToken))
             return Unauthorized();
-        Console.WriteLine($"\n bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb \n");
 
         var user = await _userManager.Users
             .FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);

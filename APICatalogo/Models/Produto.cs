@@ -9,12 +9,12 @@ namespace APICatalogo.Models;
 [Table("Produtos")]
 public class Produto
 {
-    [Key]
+    //[Key]
     public int Id { get; set; }
 
-    [Required]
-    [StringLength(80, MinimumLength = 5, ErrorMessage = "O nome deve ter pelo menos 5 e 80 caracteres")]
-    [PrimeiraLetraMaiuscula] //validação de atributo reutilizavel
+    //[Required]
+    //[StringLength(80, MinimumLength = 5, ErrorMessage = "O nome deve ter pelo menos 5 e 80 caracteres")]
+    //[PrimeiraLetraMaiuscula] //validação de atributo reutilizavel
     public string? Nome { get; set; }
 
     [Required]
@@ -39,23 +39,23 @@ public class Produto
     [BindNever] //faz não vincular informações ao parametro
     public Categoria? Categoria { get; set; }
 
-
+    //COMENTADO POR CAUSA DO GRAPHQL
     //Validação de atributo não reutilizavel 
-    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-    {
-        if (!string.IsNullOrEmpty(this.Nome))
-        {
-            var primeiraLetra = this.Nome[0].ToString();
-            if (primeiraLetra != primeiraLetra.ToUpper())
-            {
-                yield return new ValidationResult("A primeira letra do produto deve ser maiúscula",[nameof(this.Nome)]);
-            }
-        }
+    //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    //{
+    //    if (!string.IsNullOrEmpty(this.Nome))
+    //    {
+    //        var primeiraLetra = this.Nome[0].ToString();
+    //        if (primeiraLetra != primeiraLetra.ToUpper())
+    //        {
+    //            yield return new ValidationResult("A primeira letra do produto deve ser maiúscula",[nameof(this.Nome)]);
+    //        }
+    //    }
 
-        if (this.Estoque <= 0)
-        {
-            yield return new ValidationResult("O estoque deve ser maior que zero", [nameof(this.Estoque)]);
-        }
-    }
+    //    if (this.Estoque <= 0)
+    //    {
+    //        yield return new ValidationResult("O estoque deve ser maior que zero", [nameof(this.Estoque)]);
+    //    }
+    //}
 
 }
