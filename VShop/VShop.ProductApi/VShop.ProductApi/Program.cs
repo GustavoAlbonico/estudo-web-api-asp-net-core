@@ -1,3 +1,4 @@
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using VShop.ProductApi.Context;
@@ -17,8 +18,10 @@ string? mySqlConnection = builder.Configuration.GetConnectionString("DefaultConn
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection))
-           //.UseSnakeCaseNamingConvention()
+           .UseSnakeCaseNamingConvention()
 );
+
+builder.Services.AddMapster();
 
 var app = builder.Build();
 
