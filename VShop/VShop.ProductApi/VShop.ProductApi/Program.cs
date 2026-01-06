@@ -2,6 +2,10 @@ using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using VShop.ProductApi.Context;
+using VShop.ProductApi.Repositories;
+using VShop.ProductApi.Repositories.Interfaces;
+using VShop.ProductApi.Services;
+using VShop.ProductApi.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +26,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 builder.Services.AddMapster();
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 
