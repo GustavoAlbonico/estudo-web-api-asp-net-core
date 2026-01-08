@@ -10,14 +10,12 @@ public class ProductService(IMapper _mapper, IProductRepository _productReposito
 {
     public async Task<IEnumerable<ProductDTO>> GetProducts()
     {
-        var productsEntity = await _productRepository.GetAll();
-        return _mapper.Map<IEnumerable<ProductDTO>>(productsEntity);
+        return await _productRepository.GetAll();
     }
 
     public async Task<ProductDTO> GetProductById(int id)
     {
-        var productEntity = await _productRepository.GetById(id);
-        return _mapper.Map<ProductDTO>(productEntity);
+        return await _productRepository.GetById(id);
     }
     public async Task AddProduct(ProductDTO productDto)
     {

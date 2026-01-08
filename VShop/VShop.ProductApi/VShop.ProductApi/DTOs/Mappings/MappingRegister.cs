@@ -9,6 +9,8 @@ namespace VShop.ProductApi.DTOs.Mappings
         {
             config.NewConfig<Category, CategoryDTO>().TwoWays();
             config.NewConfig<Product, ProductDTO>().TwoWays();
+
+            
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mapster;
+using Microsoft.EntityFrameworkCore;
 using VShop.ProductApi.Context;
+using VShop.ProductApi.DTOs;
 using VShop.ProductApi.Models;
 using VShop.ProductApi.Repositories.Interfaces;
 
@@ -7,15 +9,15 @@ namespace VShop.ProductApi.Repositories
 {
     public class ProductRepository(AppDbContext _context) : IProductRepository
     {
-        public async Task<IEnumerable<Product>> GetAll()
+        public async Task<IEnumerable<ProductDTO>> GetAll()
         {
-            var products = await _context.Products.Include(c => c.Category).ToListAsync();
+            var products = await _context.Products.ProjectToType<ProductDTO>().ToListAsync();
             return products;
         }
 
-        public async Task<Product> GetById(int id)
+        public async Task<ProductDTO> GetById(int id)
         {
-            return await _context.Products.Include(c => c.Category)
+            return await _context.Products.ProjectToType<ProductDTO>()
                                           .Where(p => p.Id == id)
                                           .FirstOrDefaultAsync();
         }
@@ -36,7 +38,9 @@ namespace VShop.ProductApi.Repositories
 
         public async Task<Product> Delete(int id)
         {
-            var product = await GetById(id);
+            var productDto = await GetById(id);
+            var product = productDto.Adapt<Product>();
+
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return product;

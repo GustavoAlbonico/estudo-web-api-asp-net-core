@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mapster;
+using Microsoft.EntityFrameworkCore;
 using VShop.ProductApi.Context;
+using VShop.ProductApi.DTOs;
 using VShop.ProductApi.Models;
 using VShop.ProductApi.Repositories.Interfaces;
 
@@ -13,9 +15,9 @@ public class CategoryRepository(AppDbContext _context) : ICategoryRepository
         return await _context.Categories.ToListAsync();
     }
 
-    public async Task<IEnumerable<Category>> GetCategoriesProducts()
+    public async Task<IEnumerable<CategoryDTO>> GetCategoriesProducts()
     {
-        return await _context.Categories.Include(x => x.Products).ToListAsync();
+        return await _context.Categories.ProjectToType<CategoryDTO>().ToListAsync();
     }
 
     public async Task<Category> GetById(int id)
