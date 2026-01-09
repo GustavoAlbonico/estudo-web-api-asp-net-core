@@ -1,1 +1,4 @@
-<Solution />
+<Solution>
+  <Project Path="VShop.ProductApi/VShop.ProductApi/VShop.ProductApi.csproj" />
+  <Project Path="VShop.Web/VShop.Web.csproj" Id="6014feb1-45ae-4b23-a283-e9fefa31fdd4" />
+</Solution>
