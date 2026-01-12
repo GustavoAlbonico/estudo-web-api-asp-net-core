@@ -14,7 +14,7 @@ public class ProductService : IProductService
     private ProductViewModel _productVM;
     private IEnumerable<ProductViewModel> _productsVM;
 
-    public ProductService(IHttpClientFactory clientFactory, JsonSerializerOptions options)
+    public ProductService(IHttpClientFactory clientFactory)
     {
         _clientFactory = clientFactory;
         _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true};
@@ -49,7 +49,7 @@ public class ProductService : IProductService
             if (response.IsSuccessStatusCode)
             {
                 var apiResponse = await response.Content.ReadAsStreamAsync();
-                var _productVM = await JsonSerializer
+                _productVM = await JsonSerializer
                     .DeserializeAsync<ProductViewModel>
                     (apiResponse, _options);
             }
@@ -74,8 +74,8 @@ public class ProductService : IProductService
             if (response.IsSuccessStatusCode)
             {
                 var apiResponse = await response.Content.ReadAsStreamAsync();
-                var _productVM = JsonSerializer
-                    .Deserialize<ProductViewModel>
+                _productVM = await JsonSerializer
+                    .DeserializeAsync<ProductViewModel>
                     (apiResponse, _options);
             }
             else
@@ -83,7 +83,7 @@ public class ProductService : IProductService
                 return null;
             }
         }
-        return productVM;
+        return _productVM;
     }
 
     public async Task<ProductViewModel> UpdateProduct(ProductViewModel productVM, string token)
@@ -95,7 +95,7 @@ public class ProductService : IProductService
             if (response.IsSuccessStatusCode)
             {
                 var apiResponse = await response.Content.ReadAsStreamAsync();
-                var _productVM = JsonSerializer
+                _productVM = await JsonSerializer
                     .DeserializeAsync<ProductViewModel>
                     (apiResponse, _options);
             } else
@@ -109,6 +109,8 @@ public class ProductService : IProductService
 
     public async Task<bool> DeleteProductById(int id, string token)
     {
+
+        Console.WriteLine($"\n\n {id} \n\n");
         var client = _clientFactory.CreateClient("ProductApi");
 
         using(var response = await client.DeleteAsync(_apiEndpoint + id))

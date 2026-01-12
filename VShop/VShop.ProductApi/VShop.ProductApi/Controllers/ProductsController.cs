@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VShop.ProductApi.DTOs;
+using VShop.ProductApi.Services;
 using VShop.ProductApi.Services.Interfaces;
 
 namespace VShop.ProductApi.Controllers
@@ -42,7 +43,7 @@ namespace VShop.ProductApi.Controllers
             return new CreatedAtRouteResult("GetProduct", new { id = productDto.Id }, productDto);
         }
 
-        [HttpPut()]
+        [HttpPut]
         public async Task<ActionResult> Put([FromBody] ProductDTO productDto)
         {
             if (productDto is null)
@@ -53,5 +54,18 @@ namespace VShop.ProductApi.Controllers
             return Ok(productDto);
         }
 
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var productDto = await _productService.GetProductById(id);
+
+            if (productDto is null)
+                return NotFound("Product not found");
+
+            await _productService.RemoveProduct(id);
+
+            return Ok(productDto);
+        }
     }
 }

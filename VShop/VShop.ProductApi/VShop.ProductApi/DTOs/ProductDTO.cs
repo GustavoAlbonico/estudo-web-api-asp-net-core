@@ -30,7 +30,7 @@ public class ProductDTO
 
     [MaxLength(250)]
     [DisplayName("Product Image")]
-    public string? ImageURL { get; set; }
+    public string? ImageUrl { get; set; }
 
     public string? CategoryName { get; set; }
 

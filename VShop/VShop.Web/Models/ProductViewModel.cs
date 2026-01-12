@@ -16,7 +16,7 @@ public class ProductViewModel
 
     [Required]
     [Display(Name = "Image URL")]
-    public string? ImageURL { get; set; }
+    public string? ImageUrl { get; set; }
 
     [Required]
     [Range(1, 9999)]

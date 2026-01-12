@@ -38,8 +38,9 @@ namespace VShop.ProductApi.Repositories
 
         public async Task<Product> Delete(int id)
         {
-            var productDto = await GetById(id);
-            var product = productDto.Adapt<Product>();
+            var product = await _context.Products
+                                        .Where(p => p.Id == id)
+                                        .FirstOrDefaultAsync();
 
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();

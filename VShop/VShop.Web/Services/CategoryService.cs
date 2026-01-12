@@ -11,7 +11,7 @@ public class CategoryService : ICategoryService
     private readonly IHttpClientFactory _clientFactory;
     private readonly JsonSerializerOptions _options;
 
-    public CategoryService(IHttpClientFactory clientFactory, JsonSerializerOptions options)
+    public CategoryService(IHttpClientFactory clientFactory)
     {
         _clientFactory = clientFactory;
         _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
