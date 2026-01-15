@@ -42,17 +42,17 @@ public class IdentityConfiguration
                 new Client
                 {
                     ClientId = "client",
-                    ClientSecrets = { new Secret("abobrinha#azulada".Sha256())},
+                    ClientSecrets = { new Secret("123@D456g".Sha256())},
                     AllowedGrantTypes = GrantTypes.ClientCredentials, //precisa das credenciais do usuário
                     AllowedScopes = {"read", "write", "profile" }
                 },
                 new Client
                 {
                     ClientId = "vshop",
-                    ClientSecrets = { new Secret("abobrinha#azulada".Sha256())},
+                    ClientSecrets = { new Secret("123@D456g".Sha256())},
                     AllowedGrantTypes = GrantTypes.Code, //via codigo
-                    RedirectUris = {"https://localhost:7165/signin-oidc"},//login
-                    PostLogoutRedirectUris = {"https://localhost:7165/signout-callback-oidc"},//logout
+                    RedirectUris = {"https://localhost:7105/signin-oidc"},//login
+                    PostLogoutRedirectUris = {"https://localhost:7105/signout-callback-oidc"},//logout
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
