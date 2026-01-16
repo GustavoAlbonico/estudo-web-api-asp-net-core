@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 using VShop.Web.Models;
 using VShop.Web.Services.Interfaces;
@@ -23,6 +24,7 @@ public class ProductService : IProductService
     public async Task<IEnumerable<ProductViewModel>> GetAllProducts(string token)
     {
         var client = _clientFactory.CreateClient("ProductApi");
+        PutTokenInHeaderAuthorization(token, client);
 
         using (var response = await client.GetAsync(_apiEndpoint))
         {
@@ -43,6 +45,7 @@ public class ProductService : IProductService
     public async Task<ProductViewModel> FindProductById(int id, string token)
     {
         var client = _clientFactory.CreateClient("ProductApi");
+        PutTokenInHeaderAuthorization(token, client);
 
         using (var response = await client.GetAsync(_apiEndpoint + id))
         {
@@ -65,6 +68,7 @@ public class ProductService : IProductService
     public async Task<ProductViewModel> CreateProduct(ProductViewModel productVM, string token)
     {
         var client = _clientFactory.CreateClient("ProductApi");
+        PutTokenInHeaderAuthorization(token, client);
 
         var product = JsonSerializer.Serialize(productVM);
         StringContent content = new StringContent(product, Encoding.UTF8, "application/json");
@@ -89,8 +93,9 @@ public class ProductService : IProductService
     public async Task<ProductViewModel> UpdateProduct(ProductViewModel productVM, string token)
     {
         var client = _clientFactory.CreateClient("ProductApi");
+        PutTokenInHeaderAuthorization(token, client);
 
-        using(var response = await client.PutAsJsonAsync(_apiEndpoint, productVM))
+        using (var response = await client.PutAsJsonAsync(_apiEndpoint, productVM))
         {
             if (response.IsSuccessStatusCode)
             {
@@ -110,10 +115,10 @@ public class ProductService : IProductService
     public async Task<bool> DeleteProductById(int id, string token)
     {
 
-        Console.WriteLine($"\n\n {id} \n\n");
         var client = _clientFactory.CreateClient("ProductApi");
+        PutTokenInHeaderAuthorization(token, client);
 
-        using(var response = await client.DeleteAsync(_apiEndpoint + id))
+        using (var response = await client.DeleteAsync(_apiEndpoint + id))
         {
             if (response.IsSuccessStatusCode)
             {
@@ -121,6 +126,12 @@ public class ProductService : IProductService
             }
         }
         return false;
+    }
+
+    private static void PutTokenInHeaderAuthorization(string token, HttpClient client)
+    {
+        client.DefaultRequestHeaders.Authorization =
+                   new AuthenticationHeaderValue("Bearer", token);
     }
 
 }
