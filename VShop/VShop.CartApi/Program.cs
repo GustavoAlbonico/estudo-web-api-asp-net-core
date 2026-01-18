@@ -2,6 +2,7 @@ using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using VShop.CartApi.Context;
+using VShop.CartApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +51,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 builder.Services.AddMapster();
+builder.Services.AddScoped<ICartRepository,CartRepository>();
 
 builder.Services.AddCors(options =>
 {
