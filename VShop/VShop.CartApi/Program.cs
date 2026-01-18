@@ -1,3 +1,4 @@
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using VShop.CartApi.Context;
@@ -47,6 +48,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection))
            .UseSnakeCaseNamingConvention()
 );
+
+builder.Services.AddMapster();
 
 builder.Services.AddCors(options =>
 {

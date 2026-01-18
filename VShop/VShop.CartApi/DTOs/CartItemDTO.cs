@@ -1,10 +1,10 @@
-﻿namespace VShop.CartApi.Models;
+﻿namespace VShop.CartApi.DTOs;
 
-public class CartItem
+public class CartItemDTO
 {
     public int Id { get; set; }
+    public ProductDTO Product { get; set; } = new ProductDTO();
     public int Quantity { get; set; } = 1;
     public int ProductId { get; set; }
     public int CartHeaderId { get; set; }
-    public Product Product { get; set; } = new Product();
 }
