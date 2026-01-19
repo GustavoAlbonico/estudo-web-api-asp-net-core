@@ -61,7 +61,7 @@ namespace VShop.CartApi.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     quantity = table.Column<int>(type: "int", nullable: false),
                     product_id = table.Column<int>(type: "int", nullable: false),
-                    card_header_id = table.Column<int>(type: "int", nullable: false)
+                    cart_header_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

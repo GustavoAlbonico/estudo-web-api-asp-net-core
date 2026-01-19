@@ -57,9 +57,9 @@ namespace VShop.CartApi.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CardHeaderId")
+                    b.Property<int>("CartHeaderId")
                         .HasColumnType("int")
-                        .HasColumnName("card_header_id");
+                        .HasColumnName("cart_header_id");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int")
