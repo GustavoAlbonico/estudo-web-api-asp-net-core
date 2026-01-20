@@ -13,8 +13,15 @@ builder.Services.AddHttpClient<IProductService, ProductService>("ProductApi", c 
     c.BaseAddress = new Uri(builder.Configuration["ServiceUri:ProductApi"]);
 });
 
+builder.Services.AddHttpClient<ICartService, CartService>("CartApi", c =>
+{
+    c.BaseAddress = new Uri(builder.Configuration["ServiceUri:CartApi"]);
+
+});
+
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 builder.Services.AddAuthentication(options =>
 {
