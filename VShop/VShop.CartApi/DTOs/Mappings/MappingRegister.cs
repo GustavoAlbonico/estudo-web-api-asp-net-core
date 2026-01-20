@@ -9,7 +9,7 @@ public class MappingRegister : IRegister
     {
         config.NewConfig<Cart, CartDTO>().TwoWays();
         config.NewConfig<CartHeader, CartHeaderDTO>().TwoWays();
-        config.NewConfig<CartItem,CartItemDTO>().TwoWays();
+        config.NewConfig<CartItemDTO, CartItem>().TwoWays();
         config.NewConfig<Product, ProductDTO>().TwoWays();
     }
 }
