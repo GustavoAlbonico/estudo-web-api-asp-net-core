@@ -1,8 +1,9 @@
 <Solution>
   <Folder Name="/Backend/">
-    <Project Path="VShop.ProductApi/VShop.ProductApi/VShop.ProductApi.csproj" />
     <Project Path="VShop.CartApi/VShop.CartApi.csproj" Id="542f14b0-ce44-4103-bb87-d21a7eb3837e" />
+    <Project Path="VShop.DiscountApi/VShop.DiscountApi.csproj" Id="0c4e070a-f265-4fa7-b7a7-6ab988c268a1" />
     <Project Path="VShop.IdentityServer/VShop.IdentityServer.csproj" Id="f9575230-71be-4fd2-94f7-ad38034f5c52" />
+    <Project Path="VShop.ProductApi/VShop.ProductApi/VShop.ProductApi.csproj" />
   </Folder>
   <Folder Name="/Frontend/">
     <Project Path="VShop.Web/VShop.Web.csproj" Id="6014feb1-45ae-4b23-a283-e9fefa31fdd4" />
