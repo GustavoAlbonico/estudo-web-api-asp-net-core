@@ -9,6 +9,16 @@ public class AppDbContext(DbContextOptions<AppDbContext> options):DbContext(opti
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Coupon>()
+            .HasKey(c => c.Id);
+
+        modelBuilder.Entity<Coupon>()
+            .Property(c => c.CouponCode)
+            .HasMaxLength(30);
+
+        modelBuilder.Entity<Coupon>()
+            .Property(c => c.Discount)
+            .HasPrecision(10, 2);
+
     }
 }

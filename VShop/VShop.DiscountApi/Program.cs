@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using VShop.DiscountApi.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +40,15 @@ builder.Services.AddSwaggerGen(c =>
                     }
                 });
 });
+
+
+string? mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection))
+           .UseSnakeCaseNamingConvention()
+);
+
 
 var app = builder.Build();
 
