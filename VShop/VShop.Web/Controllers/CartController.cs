@@ -7,7 +7,7 @@ using VShop.Web.Services.Interfaces;
 
 namespace VShop.Web.Controllers
 {
-    public class CartController(ICartService cartService) : Controller
+    public class CartController(ICartService cartService,ICouponService couponService) : Controller
     {
         [Authorize]
         public async Task<IActionResult> Index()
@@ -34,6 +34,60 @@ namespace VShop.Web.Controllers
             return View(id);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Checkout()
+        {
+            CartViewModel? cartVM = await GetCartByUser();
+            return View(cartVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Checkout(CartViewModel cartVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await cartService.CheckoutAsync(cartVM.CartHeader, await GetAccessToken());
+
+                if (result is not null)
+                {
+                    return RedirectToAction(nameof(CheckoutCompleted));
+                }
+            }
+            return View(cartVM);
+        }
+
+        [HttpGet]
+        public IActionResult CheckoutCompleted()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ApplyCoupon(CartViewModel cartVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await cartService.ApplyCouponAsync(cartVM, await GetAccessToken());
+                if (result)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteCoupon()
+        {
+            var result = await cartService.RemoveCouponAsync(GetUserId(), await GetAccessToken());
+
+            if (result)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+
         private async Task<CartViewModel?> GetCartByUser()
         {
 
@@ -41,10 +95,23 @@ namespace VShop.Web.Controllers
 
             if (cart?.CartHeader is not null)
             {
+                if (!string.IsNullOrEmpty(cart.CartHeader.CouponCode))
+                {
+                    var coupon = await couponService.GetDiscountCoupon(cart.CartHeader.CouponCode,
+                                                                        await GetAccessToken());
+                    if (coupon?.CouponCode is not null)
+                    {
+                        cart.CartHeader.Discount = coupon.Discount;
+                    }
+                }
                 foreach (var item in cart.CartItems)
                 {
                     cart.CartHeader.TotalAmount += (item.Product.Price * item.Quantity);
                 }
+
+                cart.CartHeader.TotalAmount = cart.CartHeader.TotalAmount -
+                                             (cart.CartHeader.TotalAmount *
+                                              cart.CartHeader.Discount) / 100;
             }
             return cart;
         }
