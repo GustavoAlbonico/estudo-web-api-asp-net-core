@@ -110,7 +110,7 @@ public class CartRepository : ICartRepository
         {
             //Cria o CartItems
             var newCartItem = _mapper.Map<CartItem>(cartDto.CartItems.FirstOrDefault());
-            newCartItem.CartHeaderId = cartItem.CartHeaderId;
+            newCartItem.CartHeaderId = cartHeader.Id;
             newCartItem.Product = null;
 
             _context.CartItems.Add(newCartItem);
