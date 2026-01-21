@@ -1,6 +1,8 @@
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using VShop.DiscountApi.Context;
+using VShop.DiscountApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +51,34 @@ builder.Services.AddDbContext<AppDbContext>(options =>
            .UseSnakeCaseNamingConvention()
 );
 
+builder.Services.AddMapster();
+builder.Services.AddScoped<ICouponRepository, CouponRepository>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
+
+builder.Services.AddAuthentication("Bearer")
+       .AddJwtBearer("Bearer", options =>
+       {
+           options.Authority =
+             builder.Configuration["VShop.IdentityServer:ApplicationUrl"];
+
+           options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+           {
+               ValidateAudience = false
+           };
+       });
+
+builder.Services.AddAuthorizationBuilder().AddPolicy("ApiScope", policy =>
+{
+    policy.RequireAuthenticatedUser();
+    policy.RequireClaim("scope", "vshop");
+});
 
 var app = builder.Build();
 
@@ -63,7 +93,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("CorsPolicy");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
